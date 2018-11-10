@@ -7,12 +7,16 @@
 #define file5 "BSTs/bst5.txt"
 #define file6 "BSTs/bst6.txt"
 
-
+//Árvore
 typedef struct Test_Avr{
     int num;
     int *num_left;
     int *num_right;
 }num_no;
+
+//Menu
+int Menu();
+void menuOptions();
 
 //Ações com a Árvore:
 num_no *create_List();
@@ -25,8 +29,7 @@ FILE *leitura_Arquivo();
 int main(){
     //Craindo da Arvore
     num_no *lista = create_List();
-
-    FILE *file = leitura_Arquivo();
+    menuOptions();
 
     return 0;
 }
@@ -66,6 +69,7 @@ int escolha_Arquivo(){
     return escolha;
 }
 
+//Leitura do arquivo
 FILE *leitura_Arquivo(){
     //Escolha do arquivo de leitura
     int escolha = escolha_Arquivo();
@@ -156,4 +160,54 @@ FILE *leitura_Arquivo(){
     printf("num1: %d\nnum2: %d\nnum3: %d\nnum4: %d\nnum5: %d\nnum6: %d\nnum7: %d\nnum8: %d\nnum9: %d\nnum10: %d\n", num1, num2, num3, num4, num5, num6, num7, num8, num9, num10);
 
     return leitura;
+}
+
+//Menu
+int Menu(){
+    int escolhaMenu;
+
+    system("clear");
+    printf("-------------------------------------------------\n");
+    printf("                MENU PRINCIPAL\n");
+    printf("-------------------------------------------------\n");
+    printf("\nEscolha o que deseja fazer:\n\n");
+    printf("[1] - Imprimir a árvore\n");
+    printf("[2] - Verificar se a árvore está cheia\n");
+    printf("[3] - Buscar valor na árvore\n");
+    printf("[4] - Imprimir a altura da árvore\n");
+    printf("[5] - Remover um valor da árvore\n");
+    printf("[6] - Imprimir os valores da árvore em ordem\n");
+    printf("[7] - Imprimir os valores da árvore em pré-ordem\n");
+    printf("[8] - Imprimir os valores da árvore em pós-ordem\n");
+    printf("[9] - Balancear a árvore\n");
+    printf("[10]- Carregar uma nova árvore dos arquivos\n");
+    printf("[11]- Sair\n");
+    printf("-------------------------------------------------\n");
+
+    scanf("%d", &escolhaMenu);
+
+    while(escolhaMenu != 1 && escolhaMenu != 2 && escolhaMenu != 3 && escolhaMenu != 4 && escolhaMenu != 5 && escolhaMenu != 6 && escolhaMenu != 7 && escolhaMenu != 8 && escolhaMenu != 9 && escolhaMenu != 10 && escolhaMenu != 11){
+       printf("Digite Novamente:"); 
+       scanf("%d", &escolhaMenu);
+    }
+
+    return escolhaMenu;
+}
+
+void menuBack(){
+    getchar();
+    printf("-------------------------------------------------");
+    printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
+    getchar();
+
+    menuOptions();
+}
+
+void menuOptions(){
+    int escolhaMenu = Menu();
+
+    if(escolhaMenu == 10){
+        FILE *file = leitura_Arquivo();
+        menuBack();
+    }
 }
