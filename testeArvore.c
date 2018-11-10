@@ -9,39 +9,36 @@
 
 //Árvore
 typedef struct Test_Avr{
-    int num;
+    int element;
     int *num_left;
     int *num_right;
 }num_no;
 
 //Menu
-int Menu();
-void menuOptions();
+void starMenu();
+void Menu();
+void menuOpcoes();
 
 //Ações com a Árvore:
-num_no *create_List();
+
 
 //Leitura do Arquivo:
-int escolha_Arquivo();
-FILE *leitura_Arquivo();
+int escolhendoArquivo();
+FILE *leituraArquivo();
 
 
 int main(){
     //Craindo da Arvore
-    num_no *lista = create_List();
-    menuOptions();
+    num_no *lista = NULL;
+    //Inicializando Programa
+    starMenu();
 
     return 0;
 }
 
-//Criação da Árvore
-num_no *create_List(){
-    
-    return NULL;
-}
 
 //Escolha do arquivo de Leitura
-int escolha_Arquivo(){
+int escolhendoArquivo(){
     
     int escolha = 0;
 
@@ -70,9 +67,9 @@ int escolha_Arquivo(){
 }
 
 //Leitura do arquivo
-FILE *leitura_Arquivo(){
+FILE *leituraArquivo(){
     //Escolha do arquivo de leitura
-    int escolha = escolha_Arquivo();
+    int escolha = escolhendoArquivo();
 
     FILE *leitura;
     
@@ -131,40 +128,17 @@ FILE *leitura_Arquivo(){
         else{printf("Abriu o 6!\n");}
     }
 
-    int num1;
-    int num2;
-    int num3;
-    int num4;
-    int num5;
-    int num6;
-    int num7;
-    int num8;
-    int num9;
-    int num10;
-
-    
-    while(!feof(leitura)){
-        fscanf(leitura, "%d", &num1);
-        fscanf(leitura, "%d", &num2);
-        fscanf(leitura, "%d", &num3);
-        fscanf(leitura, "%d", &num4);
-        fscanf(leitura, "%d", &num5);
-        fscanf(leitura, "%d", &num6);
-        fscanf(leitura, "%d", &num7);
-        fscanf(leitura, "%d", &num8);
-        fscanf(leitura, "%d", &num9);
-        fscanf(leitura, "%d", &num10);
-    }
-    fclose(leitura);
-
-    printf("num1: %d\nnum2: %d\nnum3: %d\nnum4: %d\nnum5: %d\nnum6: %d\nnum7: %d\nnum8: %d\nnum9: %d\nnum10: %d\n", num1, num2, num3, num4, num5, num6, num7, num8, num9, num10);
-
     return leitura;
 }
 
+
+void starMenu(){
+    FILE *leitura = leituraArquivo();
+    printf("%s\n", leitura);
+    //Menu();
+}
 //Menu
-int Menu(){
-    int escolhaMenu;
+void Menu(){
 
     system("clear");
     printf("-------------------------------------------------\n");
@@ -183,15 +157,7 @@ int Menu(){
     printf("[10]- Carregar uma nova árvore dos arquivos\n");
     printf("[11]- Sair\n");
     printf("-------------------------------------------------\n");
-
-    scanf("%d", &escolhaMenu);
-
-    while(escolhaMenu != 1 && escolhaMenu != 2 && escolhaMenu != 3 && escolhaMenu != 4 && escolhaMenu != 5 && escolhaMenu != 6 && escolhaMenu != 7 && escolhaMenu != 8 && escolhaMenu != 9 && escolhaMenu != 10 && escolhaMenu != 11){
-       printf("Digite Novamente:"); 
-       scanf("%d", &escolhaMenu);
-    }
-
-    return escolhaMenu;
+    menuOpcoes();
 }
 
 void menuBack(){
@@ -200,14 +166,20 @@ void menuBack(){
     printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
     getchar();
 
-    menuOptions();
+    menuOpcoes();
 }
 
-void menuOptions(){
-    int escolhaMenu = Menu();
+void menuOpcoes(){
+    
+    //Escolha de uma das opções do Menu
+    int escolhaMenu;
+    scanf("%d", &escolhaMenu);
+    while(escolhaMenu != 1 && escolhaMenu != 2 && escolhaMenu != 3 && escolhaMenu != 4 && escolhaMenu != 5 && escolhaMenu != 6 && escolhaMenu != 7 && escolhaMenu != 8 && escolhaMenu != 9 && escolhaMenu != 10 && escolhaMenu != 11){
+       printf("Digite Novamente:"); 
+       scanf("%d", &escolhaMenu);
+    }
 
     if(escolhaMenu == 10){
-        FILE *file = leitura_Arquivo();
-        menuBack();
+        starMenu();
     }
 }
