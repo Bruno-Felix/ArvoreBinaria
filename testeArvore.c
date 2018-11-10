@@ -8,11 +8,11 @@
 #define file6 "BSTs/bst6.txt"
 
 //Árvore
-typedef struct Test_Avr{
+typedef struct proj5ArvoreBinaria{
     int element;
     int *num_left;
     int *num_right;
-}num_no;
+}structArvore;
 
 //Menu
 void starMenu();
@@ -20,21 +20,24 @@ void Menu();
 void menuOpcoes();
 
 //Ações com a Árvore:
-
+structArvore *criandoNovaArvore(FILE *);
 
 //Leitura do Arquivo:
 int escolhendoArquivo();
 FILE *leituraArquivo();
+void printLeituraArquivo(FILE *leitura);
 
-
+//__________________________
+//MAIN
 int main(){
-    //Craindo da Arvore
-    num_no *lista = NULL;
+    //Craindo a Arvore
+    structArvore *Arvore = NULL;
     //Inicializando Programa
     starMenu();
 
     return 0;
 }
+//__________________________
 
 
 //Escolha do arquivo de Leitura
@@ -131,18 +134,52 @@ FILE *leituraArquivo(){
     return leitura;
 }
 
+void printLeituraArquivo(FILE *leitura){
+    int num1;	
+    int num2;	
+    int num3;	
+    int num4;	
+    int num5;	
+    int num6;	
+    int num7;	
+    int num8;	
+    int num9;	
+    int num10;	
+     	
+    while(!feof(leitura)){	
+        fscanf(leitura, "%d", &num1);	
+        fscanf(leitura, "%d", &num2);	
+        fscanf(leitura, "%d", &num3);	
+        fscanf(leitura, "%d", &num4);	
+        fscanf(leitura, "%d", &num5);	
+        fscanf(leitura, "%d", &num6);	
+        fscanf(leitura, "%d", &num7);	
+        fscanf(leitura, "%d", &num8);	
+        fscanf(leitura, "%d", &num9);	
+        fscanf(leitura, "%d", &num10);	
+    }	
+    fclose(leitura);	
+     printf("num1: %d\nnum2: %d\nnum3: %d\nnum4: %d\nnum5: %d\nnum6: %d\nnum7: %d\nnum8: %d\nnum9: %d\nnum10: %d\n", num1, num2, num3, num4, num5, num6, num7, num8, num9, num10);
+}
+
+structArvore *criandoNovaArvore(FILE *leitura){
+
+}
+
 
 void starMenu(){
+    structArvore *novaArvore;
     FILE *leitura = leituraArquivo();
-    printf("%s\n", leitura);
-    //Menu();
+    //printLeituraArquivo(leitura);
+    Menu();
 }
+
 //Menu
 void Menu(){
 
     system("clear");
     printf("-------------------------------------------------\n");
-    printf("                MENU PRINCIPAL\n");
+    printf("                 MENU PRINCIPAL\n");
     printf("-------------------------------------------------\n");
     printf("\nEscolha o que deseja fazer:\n\n");
     printf("[1] - Imprimir a árvore\n");
@@ -160,15 +197,6 @@ void Menu(){
     menuOpcoes();
 }
 
-void menuBack(){
-    getchar();
-    printf("-------------------------------------------------");
-    printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
-    getchar();
-
-    menuOpcoes();
-}
-
 void menuOpcoes(){
     
     //Escolha de uma das opções do Menu
@@ -179,7 +207,31 @@ void menuOpcoes(){
        scanf("%d", &escolhaMenu);
     }
 
-    if(escolhaMenu == 10){
+    if(escolhaMenu == 1){}
+    else if(escolhaMenu == 2){}
+    else if(escolhaMenu == 3){}
+    else if(escolhaMenu == 4){}
+    else if(escolhaMenu == 5){}
+    else if(escolhaMenu == 6){}
+    else if(escolhaMenu == 7){}
+    else if(escolhaMenu == 8){}
+    else if(escolhaMenu == 9){}
+    else if(escolhaMenu == 10){
         starMenu();
     }
+    else if(escolhaMenu == 11){
+        printf("-------------------------------------------------\n");
+        printf("\n\t\t   Obrigado!!\n\n");
+        printf("-------------------------------------------------\n");
+        exit(0);
+    }
+}
+
+void menuBack(){
+    getchar();
+    printf("-------------------------------------------------");
+    printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
+    getchar();
+
+    menuOpcoes();
 }
