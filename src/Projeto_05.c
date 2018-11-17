@@ -64,7 +64,7 @@ void startMenu(){
     else if(escolha == 6){
         novaArvore = loadTreeFromFile(file6);
     }
-    //printLeituraArquivo(leitura);
+    
     Menu(novaArvore);
 }
 
@@ -117,6 +117,14 @@ void menuOpcoes(structArvore *novaArvore){
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 5){
+
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("              [5] - GetHeight\n");
+        printf("-------------------------------------------------\n");
+        int altura = getHeight(novaArvore);
+        printf("\n\ngetHeight: %d", 1 + altura);
+        
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 6){

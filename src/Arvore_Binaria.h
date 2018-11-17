@@ -22,20 +22,23 @@ void Menu(structArvore *);
 void menuOpcoes(structArvore *);
 void menuBack();
 
+
+//Auxiliar_________________________________//
+int maior(int , int );
+
+
 //AÇÕES COM ARVORES________________________//
 
 structArvore *loadTreeFromFile(char[25]);
 void showTree(structArvore *);
 void isFull(structArvore *);
 void searchValue(structArvore *);
-void getHeight(structArvore *);
+int getHeight(structArvore *);
 structArvore removeValue(structArvore *);
 void printInOrder(structArvore *);
 void printPreOrder(structArvore *);
 void printPosOrder(structArvore *);
 structArvore balanceTree(structArvore *);
 
-//LEITURA DOS ARQUIVOS_____________________//
-void printLeituraArquivo(FILE *leitura);
-
+//_________________________________________//
 #endif

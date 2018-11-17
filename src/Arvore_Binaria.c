@@ -4,6 +4,14 @@
 #include <math.h>
 #include "Arvore_Binaria.h"
 
+int maior(int a, int b){
+    if(a > b){
+        return a;
+    }
+    else{
+        return b;
+    }
+}
 
 //AÇÕES COM A ÁRVORE_______________________//
 
@@ -20,7 +28,7 @@ structArvore *loadTreeFromFile(char filename[25]){
     char aux;
 
     fscanf(leitura, "%d%c", &raiz->numero, &aux);
-    printf("Raiz: %d\n", raiz->numero);
+    //printf("Raiz: %d\n", raiz->numero);
     raiz->altura = 1;
     raiz->num_left = NULL;
     raiz->num_right = NULL;
@@ -50,12 +58,12 @@ structArvore *loadTreeFromFile(char filename[25]){
 
                     auxAv = 1;
 
-                    printf("n > r && null: %d\n", novoNumero->numero);
+                    //printf("n > r && null: %d\n", novoNumero->numero);
                  }
                 else{
                     noAntigo = noAntigo->num_right;
 
-                    printf("n > r &!= null: %d\n", novoNumero->numero);
+                    //printf("n > r &!= null: %d\n", novoNumero->numero);
                 }
             }
             //Se o novo_nomero for menor que a raiz
@@ -67,25 +75,26 @@ structArvore *loadTreeFromFile(char filename[25]){
 
                     auxAv = 1;
 
-                    printf("n < r && null: %d\n", novoNumero->numero);
+                    //printf("n < r && null: %d\n", novoNumero->numero);
                 }
                 else{
                     noAntigo = noAntigo->num_left;
 
-                    printf("n < r != null: %d\n", novoNumero->numero);
+                    //printf("n < r != null: %d\n", novoNumero->numero);
                 }
             }
         }
+        //printf("altura: %d\n", novoNumero->altura);
     }
     return raiz;
 }
 
 void printInOrder(structArvore *novaArvore){
- 
+    
     if(novaArvore != NULL){
         printInOrder(novaArvore->num_left);
 
-        printf(" %i", novaArvore->numero);
+        printf(" %d", novaArvore->numero);
 
         printInOrder(novaArvore->num_right);
     }
@@ -96,7 +105,7 @@ void printPreOrder(structArvore *novaArvore){
  
     if(novaArvore != NULL){
         
-        printf(" %i", novaArvore->numero);
+        printf(" %d", novaArvore->numero);
 
         printPreOrder(novaArvore->num_left);
         printPreOrder(novaArvore->num_right);
@@ -109,7 +118,17 @@ void printPosOrder(structArvore *novaArvore){
         printPosOrder(novaArvore->num_left);
         printPosOrder(novaArvore->num_right);
 
-        printf(" %i", novaArvore->numero);
+        printf(" %d", novaArvore->numero);
+    }
+}
+
+int getHeight(structArvore *novaArvore){
+
+    if((novaArvore == NULL) || (novaArvore->num_left == NULL && novaArvore->num_right == NULL)){
+        return 0;
+    }  
+    else{
+       return 1 + maior(getHeight(novaArvore->num_left), getHeight(novaArvore->num_right));
     }
 }
 
