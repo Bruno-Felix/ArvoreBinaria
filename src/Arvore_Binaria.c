@@ -17,8 +17,6 @@ structArvore *loadTreeFromFile(char filename[25]){
     }
 
     structArvore *raiz = (structArvore*)(malloc(sizeof(structArvore)));
-    structArvore *noAntigo;
-    structArvore *novoNumero;
     char aux;
 
     fscanf(leitura, "%d%c", &raiz->numero, &aux);
@@ -27,6 +25,8 @@ structArvore *loadTreeFromFile(char filename[25]){
     raiz->num_left = NULL;
     raiz->num_right = NULL;
 
+    structArvore *noAntigo;
+    structArvore *novoNumero;
 
     while(!feof(leitura)){
         
@@ -80,15 +80,38 @@ structArvore *loadTreeFromFile(char filename[25]){
     return raiz;
 }
 
-void showTree(structArvore *novaArvore){
+void printInOrder(structArvore *novaArvore){
  
     if(novaArvore != NULL){
-        showTree(novaArvore->num_left);
+        printInOrder(novaArvore->num_left);
+
         printf(" %i", novaArvore->numero);
-        showTree(novaArvore->num_right);
+
+        printInOrder(novaArvore->num_right);
     }
 }
-    
+
+
+void printPreOrder(structArvore *novaArvore){
+ 
+    if(novaArvore != NULL){
+        
+        printf(" %i", novaArvore->numero);
+
+        printPreOrder(novaArvore->num_left);
+        printPreOrder(novaArvore->num_right);
+    }
+}
+
+void printPosOrder(structArvore *novaArvore){
+ 
+    if(novaArvore != NULL){
+        printPosOrder(novaArvore->num_left);
+        printPosOrder(novaArvore->num_right);
+
+        printf(" %i", novaArvore->numero);
+    }
+}
 
 
 

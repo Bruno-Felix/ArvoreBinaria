@@ -32,7 +32,7 @@ void getHeight(structArvore *);
 structArvore removeValue(structArvore *);
 void printInOrder(structArvore *);
 void printPreOrder(structArvore *);
-void printPostOrder(structArvore *);
+void printPosOrder(structArvore *);
 structArvore balanceTree(structArvore *);
 
 //LEITURA DOS ARQUIVOS_____________________//

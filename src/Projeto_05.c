@@ -73,19 +73,20 @@ void Menu(structArvore *novaArvore){
 
     system("clear");
     printf("-------------------------------------------------\n");
-    printf("                 MENU PRINCIPAL\n");
+    printf("                      MENU\n");
     printf("-------------------------------------------------\n");
-    printf("\nEscolha o que deseja fazer:\n\n");
-    printf("[1] - Carregar uma nova árvore dos arquivos\n");
-    printf("[2] - Imprimir a árvore\n");
-    printf("[3] - Verificar se a árvore está cheia\n");
-    printf("[4] - Buscar valor na árvore\n");
-    printf("[5] - Imprimir a altura da árvore\n");
-    printf("[6] - Remover um valor da árvore\n");
-    printf("[7] - Imprimir os valores da árvore em ordem\n");
-    printf("[8] - Imprimir os valores da árvore em pré-ordem\n");
-    printf("[9] - Imprimir os valores da árvore em pós-ordem\n");
-    printf("[10] - Balancear a árvore\n");
+    printf("\nEscolha uma das Funções:\n\n");
+    printf("[1] - LoadTreeFromFile;\n\n");
+    printf("[2] - ShowTree:\n\n");
+    printf("[3] - IsFull;\n\n");
+    printf("[4] - SearchValue;\n\n");
+    printf("[5] - GetHeight;\n\n");
+    printf("[6] - RemoveValue;\n\n");
+    printf("[7] - PrintInOrder;\n\n");
+    printf("[8] - PrintPreOrder;\n\n");
+    printf("[9] - PrintPostOrder;\n\n");
+    printf("[10]- BalanceTree;\n");
+    printf("\n-------------------------------------------------\n");
     printf("[11]- Sair\n");
     printf("-------------------------------------------------\n");
     
@@ -96,6 +97,7 @@ void menuOpcoes(structArvore *novaArvore){
     
     //Escolha de uma das opções do Menu
     int escolhaMenu;
+    printf("Escolha: ");
     scanf("%d", &escolhaMenu);
     while(escolhaMenu != 1 && escolhaMenu != 2 && escolhaMenu != 3 && escolhaMenu != 4 && escolhaMenu != 5 && escolhaMenu != 6 && escolhaMenu != 7 && escolhaMenu != 8 && escolhaMenu != 9 && escolhaMenu != 10 && escolhaMenu != 11){
        printf("Digite Novamente:"); 
@@ -103,10 +105,9 @@ void menuOpcoes(structArvore *novaArvore){
     }
 
     if(escolhaMenu == 1){
-        showTree(novaArvore);
+        startMenu(novaArvore);
     }
     else if(escolhaMenu == 2){
-        showTree(novaArvore);
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 3){
@@ -122,20 +123,45 @@ void menuOpcoes(structArvore *novaArvore){
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 7){
+        
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("             [7] - PrintInOrder\n");
+        printf("-------------------------------------------------\n");
+        printf("\n\nInOrder: ");
+        printInOrder(novaArvore);
+        
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 8){
+        
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("             [8] - PrintPreOrder\n");
+        printf("-------------------------------------------------\n");
+        printf("\n\nPreOrder: ");
+        printPreOrder(novaArvore);
+        
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 9){
+        
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("             [9] - PrintPosOrder\n");
+        printf("-------------------------------------------------\n");
+        printf("\n\nPosOrder: ");
+        printPosOrder(novaArvore);
+        
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 10){
         startMenu(novaArvore);
     }
     else if(escolhaMenu == 11){
-        printf("-------------------------------------------------\n");
-        printf("\n\t\t   Obrigado!!\n\n");
+        system("clear");
+        printf("-------------------------------------------------\n\n");
+        printf("                  Obrigado!!\n\n");
         printf("-------------------------------------------------\n");
         exit(0);
     }
@@ -143,9 +169,9 @@ void menuOpcoes(structArvore *novaArvore){
 
 void menuBack(structArvore *novaArvore){
     getchar();
-    printf("\n-------------------------------------------------");
+    printf("\n\n\n-------------------------------------------------");
     printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
     getchar();
 
-    menuOpcoes(novaArvore);
+    Menu(novaArvore);
 }
