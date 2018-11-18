@@ -18,7 +18,7 @@ typedef struct proj5ArvoreBinaria{
 
 //MENU_____________________________________//
 void startMenu();
-void Menu(structArvore *);
+void menu(structArvore *);
 void menuOpcoes(structArvore *);
 void menuBack();
 
@@ -27,18 +27,19 @@ void menuBack();
 int maior(int , int );
 
 
-//AÇÕES COM ARVORES________________________//
+//FUNÇÕES_COM__A_ÁRVORE________________________//
 
-structArvore *loadTreeFromFile(char[25]);
+structArvore *loadTreeFromFile(char[25]);//FEITO
 void showTree(structArvore *);
 void isFull(structArvore *);
-void searchValue(structArvore *);
-int getHeight(structArvore *);
+void searchValue(structArvore *, int );//FEITO
+int getHeight(structArvore *);//FEITO
 structArvore removeValue(structArvore *);
-void printInOrder(structArvore *);
-void printPreOrder(structArvore *);
-void printPosOrder(structArvore *);
+void printInOrder(structArvore *);//FEITO
+void printPreOrder(structArvore *);//FEITO
+void printPosOrder(structArvore *);//FEITO
 structArvore balanceTree(structArvore *);
 
+//TOTAL DE PONTOS = 6
 //_________________________________________//
 #endif

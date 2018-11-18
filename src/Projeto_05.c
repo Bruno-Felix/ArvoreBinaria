@@ -65,11 +65,11 @@ void startMenu(){
         novaArvore = loadTreeFromFile(file6);
     }
     
-    Menu(novaArvore);
+    menu(novaArvore);
 }
 
 //Menu
-void Menu(structArvore *novaArvore){
+void menu(structArvore *novaArvore){
 
     system("clear");
     printf("-------------------------------------------------\n");
@@ -86,7 +86,7 @@ void Menu(structArvore *novaArvore){
     printf("[8] - PrintPreOrder;\n\n");
     printf("[9] - PrintPostOrder;\n\n");
     printf("[10]- BalanceTree;\n");
-    printf("\n-------------------------------------------------\n");
+    printf("-------------------------------------------------\n");
     printf("[11]- Sair\n");
     printf("-------------------------------------------------\n");
     
@@ -114,6 +114,15 @@ void menuOpcoes(structArvore *novaArvore){
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 4){
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("              [4] - SearchValue\n");
+        printf("-------------------------------------------------\n\n\n");
+        
+        int valorBusca;
+        printf("Digite o Número de Busca: ");
+        scanf("%d", &valorBusca);
+        searchValue(novaArvore, valorBusca);
         menuBack(novaArvore);
     }
     else if(escolhaMenu == 5){
@@ -121,9 +130,9 @@ void menuOpcoes(structArvore *novaArvore){
         system("clear");
         printf("-------------------------------------------------\n");
         printf("              [5] - GetHeight\n");
-        printf("-------------------------------------------------\n");
+        printf("-------------------------------------------------\n\n\n");
         int altura = getHeight(novaArvore);
-        printf("\n\ngetHeight: %d", 1 + altura);
+        printf("getHeight: %d", 1 + altura);
         
         menuBack(novaArvore);
     }
@@ -135,8 +144,8 @@ void menuOpcoes(structArvore *novaArvore){
         system("clear");
         printf("-------------------------------------------------\n");
         printf("             [7] - PrintInOrder\n");
-        printf("-------------------------------------------------\n");
-        printf("\n\nInOrder: ");
+        printf("-------------------------------------------------\n\n\n");
+        printf("InOrder: ");
         printInOrder(novaArvore);
         
         menuBack(novaArvore);
@@ -146,8 +155,8 @@ void menuOpcoes(structArvore *novaArvore){
         system("clear");
         printf("-------------------------------------------------\n");
         printf("             [8] - PrintPreOrder\n");
-        printf("-------------------------------------------------\n");
-        printf("\n\nPreOrder: ");
+        printf("-------------------------------------------------\n\n\n");
+        printf("PreOrder: ");
         printPreOrder(novaArvore);
         
         menuBack(novaArvore);
@@ -157,8 +166,8 @@ void menuOpcoes(structArvore *novaArvore){
         system("clear");
         printf("-------------------------------------------------\n");
         printf("             [9] - PrintPosOrder\n");
-        printf("-------------------------------------------------\n");
-        printf("\n\nPosOrder: ");
+        printf("-------------------------------------------------\n\n\n");
+        printf("PosOrder: ");
         printPosOrder(novaArvore);
         
         menuBack(novaArvore);
@@ -168,9 +177,9 @@ void menuOpcoes(structArvore *novaArvore){
     }
     else if(escolhaMenu == 11){
         system("clear");
-        printf("-------------------------------------------------\n\n");
+        printf("\n\n-------------------------------------------------\n\n");
         printf("                  Obrigado!!\n\n");
-        printf("-------------------------------------------------\n");
+        printf("-------------------------------------------------\n\n\n");
         exit(0);
     }
 }
@@ -181,5 +190,5 @@ void menuBack(structArvore *novaArvore){
     printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");
     getchar();
 
-    Menu(novaArvore);
+    menu(novaArvore);
 }
