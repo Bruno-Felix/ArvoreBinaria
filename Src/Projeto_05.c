@@ -107,12 +107,28 @@ void menuOpcoes(structArvore *raiz){
         startMenu(raiz);
     }
     else if(escolhaMenu == 2){
+
+        showTree(raiz);
         menuBack(raiz);
     }
     else if(escolhaMenu == 3){
+
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("                [3] - isFull\n");
+        printf("-------------------------------------------------\n\n\n");
+
+        if(isFull(raiz) == 1){
+          printf("A árvore é cheia." );
+        }
+        else{
+          printf("A árvore não é cheia." );
+        }
+
         menuBack(raiz);
     }
     else if(escolhaMenu == 4){
+
         system("clear");
         printf("-------------------------------------------------\n");
         printf("              [4] - SearchValue\n");

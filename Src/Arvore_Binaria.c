@@ -307,8 +307,8 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
 
 structArvore *balanceTree(structArvore *Arvore){
     
-    int alturaDireita = getHeight(Arvore->num_right) + 1;
-    int alturaEsquerda = getHeight(Arvore->num_left) + 1;
+    int alturaDireita = getHeight(Arvore->num_right);
+    int alturaEsquerda = getHeight(Arvore->num_left);
 
     printf("E %d\n", alturaEsquerda);
     printf("D %d\n", alturaDireita);
@@ -328,6 +328,53 @@ structArvore *balanceTree(structArvore *Arvore){
     else{
 
     }
+}
+
+void showTree(structArvore *Arvore){
+
+   /*  int altura = getHeight(Arvore) + 1;
+    int matriz[10][17] = {};
+
+    if(Arvore != NULL){
+        for(int i=0; i<17; i++){
+            if(i==8){
+                matriz[0][i] = Arvore->numero;
+            }
+            else{
+                matriz[0][i] = 0;
+            }
+        }
+    }
+
+    for(int i=0; i<5; i++){
+        for(int j=0; j<17; j++){
+            if(matriz[i][j] == 0){
+                printf("  ");
+            }
+            else{
+                printf("%d", matriz[i][j]);
+            }
+        }
+        printf("\n");
+    } */
+}
+
+int isFull(structArvore *Arvore){
+
+    if (Arvore == NULL){
+        return 0;
+    }
+
+    if ((Arvore->num_left == NULL) && (Arvore->num_right == NULL)){
+		return 1;
+    } 
+
+    else if (Arvore->num_left != NULL && Arvore->num_right != NULL){
+		 if (isFull(Arvore->num_left) && isFull(Arvore->num_right)){
+            return 1;
+        }
+    }
+    return 0;
 }
 
 //_________________________________________//

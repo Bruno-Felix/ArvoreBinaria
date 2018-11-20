@@ -31,7 +31,7 @@ int maior(int , int );
 
 structArvore *loadTreeFromFile(char[25]);//FEITO
 void showTree(structArvore *);
-void isFull(structArvore *);
+int isFull(structArvore *);//FEITO
 void searchValue(structArvore *, int );//FEITO
 int getHeight(structArvore *);//FEITO
 structArvore *removeValue(structArvore *, int);//FEITO
@@ -40,6 +40,7 @@ void printPreOrder(structArvore *);//FEITO
 void printPosOrder(structArvore *);//FEITO
 structArvore *balanceTree(structArvore *);
 
-//TOTAL DE PONTOS = 6
+
+//TOTAL DE PONTOS = -8
 //_________________________________________//
 #endif
