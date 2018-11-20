@@ -90,21 +90,18 @@ structArvore *loadTreeFromFile(char filename[25]){
 
 //ShowTree
 void showTree(structArvore *Arvore){
-
+    int nivel = 0;
+    //Busca a altura e multiplica por 2
     int alturaArvore = (getHeight(Arvore)*2) + 1;
     char **matrizArvore = criarMatriz(alturaArvore);
 
     salvaMatrizShow(Arvore, matrizArvore, 0, 0, 0);
-    printaMatriz(matrizArvore, alturaArvore);
-
-    for (int i = 0; i < alturaArvore; i++){
-        free(matrizArvore[i]);
-    }
-    free(matrizArvore);
+    printaMatriz(matrizArvore, alturaArvore, nivel);
 }
 
 char **criarMatriz(int alturaArvore){
-
+    
+    //Cria a matrizArvore
     char **matrizArvore = (char **)malloc(alturaArvore*sizeof(char *));
     if(matrizArvore == NULL){
         printf("erro alocacao matrizArvore\n");
@@ -112,13 +109,14 @@ char **criarMatriz(int alturaArvore){
     }
 
     for (int i = 0; i < alturaArvore; i++) {
-
+        
+        //Cria as linhas da matrizArvore
         matrizArvore[i] = (char *)malloc(150 * sizeof(char));
         if(matrizArvore[i] == NULL){
             printf("erro alocacao matrizArvore[i]\n");
             exit(0);
         }
-
+        //Preenche as matriz com espaços
         sprintf(matrizArvore[i], "%100s", "");
     }
   
@@ -128,33 +126,45 @@ char **criarMatriz(int alturaArvore){
 int salvaMatrizShow(structArvore *raiz, char **matrizArvore, int dirEsquerda, int desloc, int nivel) {
 
     int largura = 5;
-    char valores[10];
+    char auxVetorNos[10];
     
+    //Se o nó apontado para a esquerda ou direita for NULL, ou seja, a folha
     if(raiz == NULL){
         return 0;
     }
-
-    sprintf(valores, " %3d ", raiz->numero);
+    //Preenche um vetor com todos os auxVetorNos que passarem na recursividade
+    sprintf(auxVetorNos, " %3d ", raiz->numero);
     
+    //Inicia a recursividade pela esquerda, buscando nós pela esquerda até a folha
     int esquerda  = salvaMatrizShow(raiz->num_left, matrizArvore, 1, desloc, nivel + 1);
     
+    //Depos de finalizar a recursividade pela esquerda, busca nós direita até a folha
     int direita = salvaMatrizShow(raiz->num_right, matrizArvore, 0, (desloc + esquerda + largura), (nivel + 1));
     
+    //Quando as duas recursividades serem feitas, o nó será nulo
+    //Então se inicia o preechimente da matrizArvore com os nós gravados no vetor auxVetorNos:
     for (int i = 0; i < largura; i++){
        
-        matrizArvore[(2*nivel)][(desloc + esquerda + i)] = valores[i];
+        matrizArvore[(2*nivel)][(desloc + esquerda + i)] = auxVetorNos[i];
     }
 
     return esquerda + largura + direita;
 }
 
-void printaMatriz(char **matrizArvore, int altura){
+void printaMatriz(char **matrizArvore, int altura, int nivel){
+
+    //Recebe matrizArvore e inicia uma matriz por for printando os dados da matriz
+    // " " para espaços e "c" para nós
 
     for (int i = 0; i < altura; i++) {
+
+        if(i%2 == 0){
+            printf("Nível %d: ", 1 + (nivel + i)/2);
+        }
         for(int j = 0; j < 100; j++){
             printf("%c", matrizArvore[i][j]);
         }
-        
+        //A cada linha, um "\n"
         printf("\n");
     }
 }

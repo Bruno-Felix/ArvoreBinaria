@@ -28,7 +28,7 @@ void menuBack();
 //Auxiliar_________________________________//
 char **criarMatriz(int );
 int salvaMatrizShow(structArvore *, char **, int , int , int );
-void printaMatriz(char **, int );
+void printaMatriz(char **, int , int );
 
 
 //FUNÇÕES_COM__A_ÁRVORE________________________//
