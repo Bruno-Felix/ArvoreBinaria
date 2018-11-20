@@ -108,6 +108,11 @@ void menuOpcoes(structArvore *raiz){
     }
     else if(escolhaMenu == 2){
 
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("                [2] - ShowTree\n");
+        printf("-------------------------------------------------\n\n\n");
+
         showTree(raiz);
         menuBack(raiz);
     }
@@ -115,14 +120,16 @@ void menuOpcoes(structArvore *raiz){
 
         system("clear");
         printf("-------------------------------------------------\n");
-        printf("                [3] - isFull\n");
+        printf("                [3] - IsFull\n");
         printf("-------------------------------------------------\n\n\n");
 
+        showTree(raiz);
+
         if(isFull(raiz) == 1){
-          printf("A árvore é cheia." );
+          printf("\nisFull: A árvore é cheia." );
         }
         else{
-          printf("A árvore não é cheia." );
+          printf("\nisFull: A árvore não é cheia." );
         }
 
         menuBack(raiz);
@@ -134,8 +141,10 @@ void menuOpcoes(structArvore *raiz){
         printf("              [4] - SearchValue\n");
         printf("-------------------------------------------------\n\n\n");
         
+        showTree(raiz);
+        
         int valorBusca;
-        printf("Digite o Número de Busca: ");
+        printf("\nDigite o Número de Busca: ");
         scanf("%d", &valorBusca);
         searchValue(raiz, valorBusca);
         
@@ -148,32 +157,44 @@ void menuOpcoes(structArvore *raiz){
         printf("              [5] - GetHeight\n");
         printf("-------------------------------------------------\n\n\n");
         
+        showTree(raiz);
+
         int altura = getHeight(raiz);
-        printf("getHeight: %d", 1 + altura);
+        printf("\ngetHeight: %d", 1 + altura);
         
         menuBack(raiz);
     }
     else if(escolhaMenu == 6){
+        
         system("clear");
         printf("-------------------------------------------------\n");
         printf("              [6] - RemoveValue\n");
         printf("-------------------------------------------------\n\n\n");
         
+        printf("Arvore:\n");
+        showTree(raiz);
+
         int valorRemover;
-        printf("Digite um Número para Remover: ");
+        printf("\nDigite um Número para Remover: ");
         scanf("%d", &valorRemover);
 
         raiz = removeValue(raiz, valorRemover);
 
+        printf("\n\nArvore Atual:\n");
+        showTree(raiz);
+
         menuBack(raiz);
     }
     else if(escolhaMenu == 7){
-        
+
         system("clear");
         printf("-------------------------------------------------\n");
         printf("             [7] - PrintInOrder\n");
         printf("-------------------------------------------------\n\n\n");
         
+        showTree(raiz);
+        printf("\n");
+
         printf("InOrder: ");
         printInOrder(raiz);
         
@@ -186,6 +207,9 @@ void menuOpcoes(structArvore *raiz){
         printf("             [8] - PrintPreOrder\n");
         printf("-------------------------------------------------\n\n\n");
         
+        showTree(raiz);
+        printf("\n");
+
         printf("PreOrder: ");
         printPreOrder(raiz);
         
@@ -198,6 +222,9 @@ void menuOpcoes(structArvore *raiz){
         printf("             [9] - PrintPosOrder\n");
         printf("-------------------------------------------------\n\n\n");
         
+        showTree(raiz);
+        printf("\n");
+
         printf("PosOrder: ");
         printPosOrder(raiz);
         
@@ -210,7 +237,10 @@ void menuOpcoes(structArvore *raiz){
         printf("             [10] - BalanceTree\n");
         printf("-------------------------------------------------\n\n\n");
 
-        raiz = balanceTree(raiz);
+        printf("\n\nArvore Anterior: \n");
+        showTree(raiz);
+
+        //raiz = balanceTree(raiz);
         
         menuBack(raiz);
     }

@@ -10,8 +10,10 @@
 
 //Árvore
 typedef struct proj5ArvoreBinaria{
+    //Valor do Nó
     int numero;
-    int altura;
+
+    //Nó a Esquerda(num_left) e Nó a Direita(num_right)
     struct proj5ArvoreBinaria *num_left;
     struct proj5ArvoreBinaria *num_right;
 }structArvore;
@@ -25,6 +27,10 @@ void menuBack();
 
 //Auxiliar_________________________________//
 int maior(int , int );
+
+char **criarMatriz(int );
+int salvaMatrizShow(structArvore *, char **, int , int , int );
+void printaMatriz(char **, int );
 
 
 //FUNÇÕES_COM__A_ÁRVORE________________________//

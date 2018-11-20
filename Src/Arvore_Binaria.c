@@ -32,7 +32,6 @@ structArvore *loadTreeFromFile(char filename[25]){
 
     fscanf(leitura, "%d%c", &raiz->numero, &aux);
     //printf("Raiz: %d\n", raiz->numero);
-    raiz->altura = 1;
     raiz->num_left = NULL;
     raiz->num_right = NULL;
 
@@ -58,7 +57,6 @@ structArvore *loadTreeFromFile(char filename[25]){
                 if(noAntigo->num_right == NULL){
                     
                     noAntigo->num_right = novoNumero;
-                    novoNumero->altura = noAntigo->altura + 1;
 
                     auxAv = 1;
 
@@ -75,7 +73,6 @@ structArvore *loadTreeFromFile(char filename[25]){
                 if(noAntigo->num_left == NULL){
 
                     noAntigo->num_left = novoNumero;
-                    novoNumero->altura = noAntigo->altura + 1;
 
                     auxAv = 1;
 
@@ -227,12 +224,7 @@ void searchValue(structArvore *Arvore, int valorBusca){
     }
     //Caso o valorBusca não esteja presente na Árvore
     if(auxEncontradoEsq == 0 && auxEncontradoDir == 0){
-        system("clear");
-        printf("-------------------------------------------------\n");
-        printf("              [4] - SearchValue\n");
-        printf("-------------------------------------------------\n\n\n");
-
-        printf("O valor %d não está presente na Árvore.", valorBusca);
+        printf("\nO valor %d não está presente na Árvore.", valorBusca);
     }
 }
 
@@ -259,7 +251,7 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
         
         if(Arvore->num_left == NULL){
             
-            printf("\n\nNúmero Removivo.");
+            printf("\nNúmero Removivo.");
             
             auxRV = Arvore->num_right;
 
@@ -307,7 +299,7 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
 
 structArvore *balanceTree(structArvore *Arvore){
     
-    int alturaDireita = getHeight(Arvore->num_right);
+    /* int alturaDireita = getHeight(Arvore->num_right);
     int alturaEsquerda = getHeight(Arvore->num_left);
 
     printf("E %d\n", alturaEsquerda);
@@ -327,37 +319,82 @@ structArvore *balanceTree(structArvore *Arvore){
     }
     else{
 
-    }
+    } */
 }
 
 void showTree(structArvore *Arvore){
 
-   /*  int altura = getHeight(Arvore) + 1;
-    int matriz[10][17] = {};
+    int alturaArvore = (getHeight(Arvore)*2) + 1;
+    char **matrizArvore = criarMatriz(alturaArvore);
 
-    if(Arvore != NULL){
-        for(int i=0; i<17; i++){
-            if(i==8){
-                matriz[0][i] = Arvore->numero;
-            }
-            else{
-                matriz[0][i] = 0;
-            }
-        }
+    salvaMatrizShow(Arvore, matrizArvore, 0, 0, 0);
+    printaMatriz(matrizArvore, alturaArvore);
+
+    for (int i = 0; i < alturaArvore; i++){
+        free(matrizArvore[i]);
+    }
+    free(matrizArvore);
+    
+}
+
+char **criarMatriz(int alturaArvore){
+
+    char **matrizArvore = (char **)malloc(alturaArvore*sizeof(char *));
+    if(matrizArvore == NULL){
+        printf("erro alocacao matrizArvore\n");
+        exit(0);
     }
 
-    for(int i=0; i<5; i++){
-        for(int j=0; j<17; j++){
-            if(matriz[i][j] == 0){
-                printf("  ");
-            }
-            else{
-                printf("%d", matriz[i][j]);
-            }
+    for (int i = 0; i < alturaArvore; i++) {
+
+        matrizArvore[i] = (char *)malloc(150 * sizeof(char));
+        if(matrizArvore[i] == NULL){
+            printf("erro alocacao matrizArvore[i]\n");
+            exit(0);
         }
-        printf("\n");
-    } */
+
+        sprintf(matrizArvore[i], "%100s", "");
+    }
+  
+    return matrizArvore;
 }
+
+
+int salvaMatrizShow(structArvore *raiz, char **matrizArvore, int dirEsquerda, int desloc, int nivel) {
+
+    int largura = 5;
+    char valores[10];
+    
+    if(raiz == NULL){
+        return 0;
+    }
+
+    sprintf(valores, " %3d ", raiz->numero);
+    
+    int esquerda  = salvaMatrizShow(raiz->num_left, matrizArvore, 1, desloc, nivel + 1);
+    
+    int direita = salvaMatrizShow(raiz->num_right, matrizArvore, 0, (desloc + esquerda + largura), (nivel + 1));
+    
+    for (int i = 0; i < largura; i++){
+       
+        matrizArvore[(2*nivel)][(desloc + esquerda + i)] = valores[i];
+    }
+
+    return esquerda + largura + direita;
+}
+
+
+void printaMatriz(char **matrizArvore, int altura){
+
+    for (int i = 0; i < altura; i++) {
+        for(int j = 0; j < 100; j++){
+            printf("%c", matrizArvore[i][j]);
+        }
+        
+        printf("\n");
+    }
+}
+
 
 int isFull(structArvore *Arvore){
 
