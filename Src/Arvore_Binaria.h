@@ -38,7 +38,7 @@ structArvore *removeValue(structArvore *, int);//FEITO
 void printInOrder(structArvore *);//FEITO
 void printPreOrder(structArvore *);//FEITO
 void printPosOrder(structArvore *);//FEITO
-structArvore balanceTree(structArvore *);
+structArvore *balanceTree(structArvore *);
 
 //TOTAL DE PONTOS = 6
 //_________________________________________//

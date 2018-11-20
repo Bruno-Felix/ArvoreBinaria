@@ -5,14 +5,14 @@
 #include "Arvore_Binaria.h"
 
 //Auxiliar_________________________________//
-int maior(int a, int b){
+/* int maior(int a, int b){
     if(a > b){
         return a;
     }
     else{
         return b;
     }
-}
+} */
 
 //FUNÇÕES_COM__A_ÁRVORE________________________//
 
@@ -129,11 +129,20 @@ void printPosOrder(structArvore *Arvore){
 //GetHeight
 int getHeight(structArvore *Arvore){
 
+    int aux = 0;
+
     if((Arvore == NULL) || (Arvore->num_left == NULL && Arvore->num_right == NULL)){
         return 0;
     }  
     else{
-       return 1 + maior(getHeight(Arvore->num_left), getHeight(Arvore->num_right));
+        if(getHeight(Arvore->num_right) > getHeight(Arvore->num_left)){
+            aux = getHeight(Arvore->num_right);
+        }
+        else{
+            aux = getHeight(Arvore->num_left);
+        }
+
+        return 1 + aux;
     }
 }
 
@@ -227,6 +236,7 @@ void searchValue(structArvore *Arvore, int valorBusca){
     }
 }
 
+//removeValue
 structArvore *removeValue(structArvore *Arvore, int valorRemover){
 
     structArvore *auxRV;
@@ -292,6 +302,32 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
     }
 
     return Arvore;
+}
+
+
+structArvore *balanceTree(structArvore *Arvore){
+    
+    int alturaDireita = getHeight(Arvore->num_right) + 1;
+    int alturaEsquerda = getHeight(Arvore->num_left) + 1;
+
+    printf("E %d\n", alturaEsquerda);
+    printf("D %d\n", alturaDireita);
+    int diferenca = alturaDireita - alturaEsquerda;
+    printf("diferença: %d\n", diferenca);
+
+    if((alturaDireita >= alturaEsquerda) && (diferenca == 1 || diferenca == 0)){
+        printf("Árvore já é balanceada.");
+        
+        return Arvore;
+    }
+    else if((alturaEsquerda > alturaDireita) && (diferenca == 1 || diferenca == 0)){
+        printf("Árvore já é balanceada.");
+
+        return Arvore;
+    }
+    else{
+
+    }
 }
 
 //_________________________________________//

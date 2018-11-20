@@ -188,6 +188,14 @@ void menuOpcoes(structArvore *raiz){
         menuBack(raiz);
     }
     else if(escolhaMenu == 10){
+
+        system("clear");
+        printf("-------------------------------------------------\n");
+        printf("             [10] - BalanceTree\n");
+        printf("-------------------------------------------------\n\n\n");
+
+        raiz = balanceTree(raiz);
+        
         menuBack(raiz);
     }
     else if(escolhaMenu == 11){
