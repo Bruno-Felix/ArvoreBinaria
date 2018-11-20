@@ -26,17 +26,14 @@ void menuBack();
 
 
 //Auxiliar_________________________________//
-int maior(int , int );
-
 char **criarMatriz(int );
 int salvaMatrizShow(structArvore *, char **, int , int , int );
 void printaMatriz(char **, int );
 
 
 //FUNÇÕES_COM__A_ÁRVORE________________________//
-
 structArvore *loadTreeFromFile(char[25]);//FEITO
-void showTree(structArvore *);
+void showTree(structArvore *);//FEITO
 int isFull(structArvore *);//FEITO
 void searchValue(structArvore *, int );//FEITO
 int getHeight(structArvore *);//FEITO
@@ -46,7 +43,6 @@ void printPreOrder(structArvore *);//FEITO
 void printPosOrder(structArvore *);//FEITO
 structArvore *balanceTree(structArvore *);
 
-
-//TOTAL DE PONTOS = -8
+//TOTAL DE PONTOS = 9
 //_________________________________________//
 #endif

@@ -255,6 +255,7 @@ void menuOpcoes(structArvore *raiz){
 }
 
 void menuBack(structArvore *raiz){
+    
     getchar();
     printf("\n\n\n-------------------------------------------------");
     printf("\nAperte QUALQUER BOTÃO para voltar ao Menu Principal\n");

@@ -4,17 +4,9 @@
 #include <math.h>
 #include "Arvore_Binaria.h"
 
-//Auxiliar_________________________________//
-/* int maior(int a, int b){
-    if(a > b){
-        return a;
-    }
-    else{
-        return b;
-    }
-} */
 
 //FUNÇÕES_COM__A_ÁRVORE________________________//
+
 
 //LoadTreeFromFile
 structArvore *loadTreeFromFile(char filename[25]){
@@ -28,120 +20,237 @@ structArvore *loadTreeFromFile(char filename[25]){
 
     //Inserção da Raiz
     structArvore *raiz = (structArvore*)(malloc(sizeof(structArvore)));
+    if(raiz == NULL){
+        printf("Erro na alocação de memoria da Raiz(loadTreeFromFile)\n");
+        exit(0);
+    }
     char aux;
 
     fscanf(leitura, "%d%c", &raiz->numero, &aux);
-    //printf("Raiz: %d\n", raiz->numero);
+
     raiz->num_left = NULL;
     raiz->num_right = NULL;
 
+
     structArvore *noAntigo;
     structArvore *novoNumero;
-
     //Inserção dos Demais nós
     while(!feof(leitura)){
         
         novoNumero = (structArvore*)(malloc(sizeof(structArvore)));
 
+
         fscanf(leitura, "%d%c", &novoNumero->numero, &aux);
-        //printf("%d\n", novoNumero->numero);
+        if(novoNumero == NULL){
+            printf("Erro na alocação de memoria da novoNumero(loadTreeFromFile)\n");
+            exit(0);
+        }
+        
         novoNumero->num_left = NULL;
         novoNumero->num_right = NULL;
 
         int auxAv = 0;
         noAntigo = raiz;
 
+        //Alocando no Seu devido Lugar da Árvore
         while(auxAv == 0){
             //Se o novo_nomero for maior que a raiz
             if(novoNumero->numero > noAntigo->numero){
+                //Se o noAntigo for a Raiz
                 if(noAntigo->num_right == NULL){
                     
                     noAntigo->num_right = novoNumero;
 
                     auxAv = 1;
-
-                    //printf("n > r && null: %d\n", novoNumero->numero);
                  }
                 else{
                     noAntigo = noAntigo->num_right;
-
-                    //printf("n > r &!= null: %d\n", novoNumero->numero);
                 }
             }
             //Se o novo_nomero for menor que a raiz
             else{
+                //Se o noAntigo for a Raiz
                 if(noAntigo->num_left == NULL){
 
                     noAntigo->num_left = novoNumero;
 
                     auxAv = 1;
-
-                    //printf("n < r && null: %d\n", novoNumero->numero);
                 }
                 else{
                     noAntigo = noAntigo->num_left;
-
-                    //printf("n < r != null: %d\n", novoNumero->numero);
                 }
             }
         }
-        //printf("altura: %d\n", novoNumero->altura);
     }
 
     //Retorno do endereço da raiz da árvore
     return raiz;
 }
 
+
+//ShowTree
+void showTree(structArvore *Arvore){
+
+    int alturaArvore = (getHeight(Arvore)*2) + 1;
+    char **matrizArvore = criarMatriz(alturaArvore);
+
+    salvaMatrizShow(Arvore, matrizArvore, 0, 0, 0);
+    printaMatriz(matrizArvore, alturaArvore);
+
+    for (int i = 0; i < alturaArvore; i++){
+        free(matrizArvore[i]);
+    }
+    free(matrizArvore);
+}
+
+char **criarMatriz(int alturaArvore){
+
+    char **matrizArvore = (char **)malloc(alturaArvore*sizeof(char *));
+    if(matrizArvore == NULL){
+        printf("erro alocacao matrizArvore\n");
+        exit(0);
+    }
+
+    for (int i = 0; i < alturaArvore; i++) {
+
+        matrizArvore[i] = (char *)malloc(150 * sizeof(char));
+        if(matrizArvore[i] == NULL){
+            printf("erro alocacao matrizArvore[i]\n");
+            exit(0);
+        }
+
+        sprintf(matrizArvore[i], "%100s", "");
+    }
+  
+    return matrizArvore;
+}
+
+int salvaMatrizShow(structArvore *raiz, char **matrizArvore, int dirEsquerda, int desloc, int nivel) {
+
+    int largura = 5;
+    char valores[10];
+    
+    if(raiz == NULL){
+        return 0;
+    }
+
+    sprintf(valores, " %3d ", raiz->numero);
+    
+    int esquerda  = salvaMatrizShow(raiz->num_left, matrizArvore, 1, desloc, nivel + 1);
+    
+    int direita = salvaMatrizShow(raiz->num_right, matrizArvore, 0, (desloc + esquerda + largura), (nivel + 1));
+    
+    for (int i = 0; i < largura; i++){
+       
+        matrizArvore[(2*nivel)][(desloc + esquerda + i)] = valores[i];
+    }
+
+    return esquerda + largura + direita;
+}
+
+void printaMatriz(char **matrizArvore, int altura){
+
+    for (int i = 0; i < altura; i++) {
+        for(int j = 0; j < 100; j++){
+            printf("%c", matrizArvore[i][j]);
+        }
+        
+        printf("\n");
+    }
+}
+
+
+//IsFull
+int isFull(structArvore *Arvore){
+
+    //Se a Árvore é vazia
+    if (Arvore == NULL){
+        return 0;
+    }
+
+    //Caso ideal de achar a folha
+    if ((Arvore->num_left == NULL) && (Arvore->num_right == NULL)){
+		return 1;
+    } 
+
+    //Percorrendo a Árvore em busca das folhas
+    else if (Arvore->num_left != NULL && Arvore->num_right != NULL){
+		 if (isFull(Arvore->num_left) == 1 && isFull(Arvore->num_right) == 1){
+            return 1;
+        }
+    }
+    //Caso todos os nós não satisfaça o Critério da Árvore Cheia
+    return 0;
+}
+
+
 //Print In/Pos/Pre Order
 void printInOrder(structArvore *Arvore){
     
     if(Arvore != NULL){
+        //Começa a Recursividade pela Esquerda, Caso chegue em NULL, printa o nó pai, no caso a folha pela esquerda:
         printInOrder(Arvore->num_left);
-
+        
+        //Caso um nó seja printado acima, printa o nó pai e até mesmo a Raiz:
         printf(" %d", Arvore->numero);
 
+        //Caso o nó pai seja printado, inicia a recursividade pela direita do nó até chegar em NULL,
+        //assim printando o nó pai , finalizando a recursividade
         printInOrder(Arvore->num_right);
     }
 }
 void printPreOrder(structArvore *Arvore){
  
     if(Arvore != NULL){
-        
+        //Inicia printando o nó atual, no caso um nó pai e até mesmo a Raiz:
         printf(" %d", Arvore->numero);
 
+        //Após o pai ser printado, inicia a recursividade pela esquerda eté NULL 
+        //printando o nó pai, no caso a folha pela esquerda:
         printPreOrder(Arvore->num_left);
+        //Após a recursividade pela esquerda encerrar, inicia a recursividade pela direita:
         printPreOrder(Arvore->num_right);
     }
 }
 void printPosOrder(structArvore *Arvore){
  
     if(Arvore != NULL){
+        //Começa a Recursividade pela Esquerda, Caso chegue em NULL, printa o nó pai, no caso a folha pela esquerda:
         printPosOrder(Arvore->num_left);
+        //Após a recursividade pela esquerda encerrar, inicia a recursividade pela direita:
         printPosOrder(Arvore->num_right);
 
+        //Após printar  a esquerda e a direita, printa o nó pai e até mesmo a Raiz:
         printf(" %d", Arvore->numero);
     }
 }
+
 
 //GetHeight
 int getHeight(structArvore *Arvore){
 
     int aux = 0;
-
+    //Caso a nó seja NULL ou o nó seja o folha
     if((Arvore == NULL) || (Arvore->num_left == NULL && Arvore->num_right == NULL)){
         return 0;
-    }  
+    }
+    
     else{
+        //Se a Altura pela direita da raiz seja maior Altura pela esquerda da raiz
         if(getHeight(Arvore->num_right) > getHeight(Arvore->num_left)){
+            //Pega para uso a Altura pela direita
             aux = getHeight(Arvore->num_right);
         }
+        //Caso contŕario
         else{
+            //Pega para uso a Altura pela esquerda
             aux = getHeight(Arvore->num_left);
         }
 
         return 1 + aux;
     }
 }
+
 
 //SearchValue
 void searchValue(structArvore *Arvore, int valorBusca){
@@ -228,6 +337,7 @@ void searchValue(structArvore *Arvore, int valorBusca){
     }
 }
 
+
 //removeValue
 structArvore *removeValue(structArvore *Arvore, int valorRemover){
 
@@ -238,17 +348,20 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
         return Arvore;
     }
 
-   if(valorRemover > Arvore->numero){
+    //Caso o valorRemover seja maior que o nó, busca pela direita
+    if(valorRemover > Arvore->numero){
 
         Arvore->num_right = removeValue(Arvore->num_right, valorRemover);
     }
+    //Caso o valorRemover seja menor que o nó, busca pela esquerda
     else if(valorRemover < Arvore->numero){
         
         Arvore->num_left = removeValue(Arvore->num_left, valorRemover);
     }
 
+    //Caso o valorRemover seja igual ao nó
     else if(valorRemover == Arvore->numero){
-        
+        //Caso o nó não tenha filho pela esquerda ou seja a folha
         if(Arvore->num_left == NULL){
             
             printf("\nNúmero Removivo.");
@@ -259,7 +372,7 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
 
             return auxRV;
         }
-
+        //Caso o nó não tenha filho pela direita ou seja a folha
         else if(Arvore->num_right == NULL){
 
             printf("\n\nNúmero Removivo.");
@@ -270,15 +383,12 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
             
             return auxRV;
         }
-        
+
+        //Buscar que as condições acima sejam aceitas, 
+        //buscando substituir o no pai(caso seja o removido) pelo nó filho da direita
         structArvore *aux1 = Arvore->num_right;
-    
-        /* if(aux1 == NULL){
-            structArvore *auxRV = NULL;
-        } */
 
         int feito = 0;
-
         while(feito == 0){
             if(aux1->num_left == NULL){
                 auxRV = aux1;
@@ -296,7 +406,8 @@ structArvore *removeValue(structArvore *Arvore, int valorRemover){
     return Arvore;
 }
 
-
+//Função não finalizada
+//Someste se a Árvore for balanceada
 structArvore *balanceTree(structArvore *Arvore){
     
     /* int alturaDireita = getHeight(Arvore->num_right);
@@ -322,96 +433,4 @@ structArvore *balanceTree(structArvore *Arvore){
     } */
 }
 
-void showTree(structArvore *Arvore){
-
-    int alturaArvore = (getHeight(Arvore)*2) + 1;
-    char **matrizArvore = criarMatriz(alturaArvore);
-
-    salvaMatrizShow(Arvore, matrizArvore, 0, 0, 0);
-    printaMatriz(matrizArvore, alturaArvore);
-
-    for (int i = 0; i < alturaArvore; i++){
-        free(matrizArvore[i]);
-    }
-    free(matrizArvore);
-    
-}
-
-char **criarMatriz(int alturaArvore){
-
-    char **matrizArvore = (char **)malloc(alturaArvore*sizeof(char *));
-    if(matrizArvore == NULL){
-        printf("erro alocacao matrizArvore\n");
-        exit(0);
-    }
-
-    for (int i = 0; i < alturaArvore; i++) {
-
-        matrizArvore[i] = (char *)malloc(150 * sizeof(char));
-        if(matrizArvore[i] == NULL){
-            printf("erro alocacao matrizArvore[i]\n");
-            exit(0);
-        }
-
-        sprintf(matrizArvore[i], "%100s", "");
-    }
-  
-    return matrizArvore;
-}
-
-
-int salvaMatrizShow(structArvore *raiz, char **matrizArvore, int dirEsquerda, int desloc, int nivel) {
-
-    int largura = 5;
-    char valores[10];
-    
-    if(raiz == NULL){
-        return 0;
-    }
-
-    sprintf(valores, " %3d ", raiz->numero);
-    
-    int esquerda  = salvaMatrizShow(raiz->num_left, matrizArvore, 1, desloc, nivel + 1);
-    
-    int direita = salvaMatrizShow(raiz->num_right, matrizArvore, 0, (desloc + esquerda + largura), (nivel + 1));
-    
-    for (int i = 0; i < largura; i++){
-       
-        matrizArvore[(2*nivel)][(desloc + esquerda + i)] = valores[i];
-    }
-
-    return esquerda + largura + direita;
-}
-
-
-void printaMatriz(char **matrizArvore, int altura){
-
-    for (int i = 0; i < altura; i++) {
-        for(int j = 0; j < 100; j++){
-            printf("%c", matrizArvore[i][j]);
-        }
-        
-        printf("\n");
-    }
-}
-
-
-int isFull(structArvore *Arvore){
-
-    if (Arvore == NULL){
-        return 0;
-    }
-
-    if ((Arvore->num_left == NULL) && (Arvore->num_right == NULL)){
-		return 1;
-    } 
-
-    else if (Arvore->num_left != NULL && Arvore->num_right != NULL){
-		 if (isFull(Arvore->num_left) && isFull(Arvore->num_right)){
-            return 1;
-        }
-    }
-    return 0;
-}
-
-//_________________________________________//
+//_____________________________________________//
